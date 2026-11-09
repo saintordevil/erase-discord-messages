@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            Erase
 // @description     Delete all messages in a Discord channel or DM (Bulk deletion)
-// @version         1.2.6
+// @version         1.2.7
 // @author          saint
 // @homepageURL     https://github.com/saintordevil/erase-discord-messages
 // @supportURL      https://github.com/saintordevil/erase-discord-messages/issues
@@ -25,7 +25,7 @@
 	if (window.top !== window.self) return;
 
 	/* rollup-plugin-baked-env */
-	const VERSION = "1.2.6";
+	const VERSION = "1.2.7";
 
 	var themeCss = (`
 /* erase window */
@@ -2644,6 +2644,7 @@
     <dialog id="changelogDialog" class="erase-dialog" aria-labelledby="changelogTitle">
         <div class="queue-head"><div><h2 id="changelogTitle">What's new in Erase</h2><p>Useful improvements since 1.0.8.</p></div><button type="button" id="closeChangelog" aria-label="Close changelog"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" d="M6 6l12 12M18 6L6 18"/></svg></button></div>
         <div class="changelog-body scroll">
+            <section class="changelog-release"><h3>1.2.7 · Matching webhook colors</h3><ul><li>Completion, preview and test cards use Erase's exact theme accent, #7e9dff. Warning, stopped and failed reports also use the tool's existing palette.</li></ul></section>
             <section class="changelog-release"><h3>1.2.6 · Clearer webhook cards</h3><ul><li>Webhook reports use a compact Discord card with blue completed-run and purple preview accents, prominent message totals, and neatly grouped progress, duration and newest-message protection.</li><li>Issues, stopped runs and failures have distinct headings and colors. Extra details appear only when needed, and previews and test reports remain clearly labelled.</li></ul></section>
             <section class="changelog-release"><h3>1.2.5 · Clear counts at every size</h3><ul><li>All numeric ratios use compact formatting such as 15/15, including queue selections, progress, missing-friend checks and webhook reports.</li><li>The progress footer adapts to the panel's width when resized. Status text, percentage, counters and Auto-scroll wrap into separate rows instead of overlapping.</li></ul></section>
             <section class="changelog-release"><h3>1.2.4 · History until you clear it</h3><ul><li>Recently deleted history no longer expires after seven days or drops older records after 200 chats. Existing saved activity carries forward automatically.</li><li>Clear history in the queue popup removes this account's deletion badges after confirmation, without changing its saved queue or messages.</li><li>History saves only changed records, keeping updates small as the list grows. Missing friends and closed DMs keep their badges across later runs.</li></ul></section>
@@ -4753,7 +4754,8 @@
 	  return { username: 'Erase', allowed_mentions: { parse: [] }, embeds: [{
 	    author: { name: report.mode === 'Queued run' ? 'Queued run' : 'Single run' },
 	    title: `${test ? 'Test · ' : ''}${labels[outcome]}`,
-	    description, color: ({ success: report.preview ? 0x8b7cf8 : 0x5865f2, issues: 0xf0b232, stopped: 0x8b86ad, failed: 0xed4245 })[outcome],
+	    // Match the panel's accent, warning, secondary accent and danger tokens.
+	    description, color: ({ success: 0x7e9dff, issues: 0xf4bb67, stopped: 0xc4d1ff, failed: 0xff7685 })[outcome],
 	    fields, footer: { text: test ? 'Erase · Test report' : report.preview ? 'Erase · Preview only' : 'Erase · Run report' },
 	    timestamp: new Date(report.completedAt || Date.now()).toISOString(),
 	  }] };

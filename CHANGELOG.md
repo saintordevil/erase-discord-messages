@@ -2,6 +2,10 @@
 
 User-facing changes to Erase. The same release notes are available in **Advanced settings > View changelog**.
 
+## 1.2.7 · Matching webhook colors
+
+- Completion, preview and test cards use Erase's exact theme accent, #7e9dff. Warning, stopped and failed reports also use the tool's existing palette.
+
 ## 1.2.6 · Clearer webhook cards
 
 - Webhook reports use a compact Discord card with blue completed-run and purple preview accents, prominent message totals, and neatly grouped progress, duration and newest-message protection.
